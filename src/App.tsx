@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC } from 'react';
+import { Provider } from 'react-redux';
+import { store } from 'app/store';
+import HomePage from 'pages/Home';
+import dayjs from 'dayjs';
+import calendar from 'dayjs/plugin/calendar';
+import updateLocale from 'dayjs/plugin/updateLocale';
+import('dayjs/locale/ru');
 
-function App() {
+const App: FC = () => {
+  dayjs.locale('ru');
+  dayjs.extend(calendar);
+  dayjs.extend(updateLocale);
+  dayjs.updateLocale('ru', {
+    weekdays: 'Воскресенье_Понедельник_Вторник_Среда_Четверг_Пятница_Суббота'.split('_'),
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div className='App'>
+        <HomePage />
+      </div>
+    </Provider>
   );
-}
+};
 
 export default App;

@@ -1,0 +1,13 @@
+.root {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 400px 1fr;
+  grid-template-areas:
+      "ThisDay   ThisDayInfo"
+      "Week      Week";
+}
+
+.popup {
+  display: grid;
+  grid-template-columns: 30% 1fr;
+}

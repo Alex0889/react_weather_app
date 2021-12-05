@@ -1,0 +1,32 @@
+.root {
+  grid-area: ThisDayInfo;
+
+  display: grid;
+
+  padding: 40px;
+
+  &.popup {
+    grid-area: unset;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  &__items {
+    display: grid;
+    grid-template-rows: repeat(4, 38px);
+    align-content: space-between;
+  }
+
+  &__items div:last-child {
+    margin-bottom: 0;
+  }
+
+  &__img {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    z-index: -1;
+  }
+}

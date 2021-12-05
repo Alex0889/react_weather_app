@@ -1,0 +1,71 @@
+@import "../../prebuild/scss/variables";
+@import "../../prebuild/scss/mixins";
+
+.root {
+  grid-area: ThisDay;
+
+  &.popup {
+    grid-area: unset;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  &__top {
+    display: grid;
+    grid-template-columns: 1fr 119px;
+    margin-bottom: 30px;
+
+    svg {
+      width: 119px;
+      height: 119px;
+    }
+
+    &.popup {
+      grid-template-columns: 100%;
+      margin-bottom: 0;
+
+      svg {
+        width: 53px;
+        height: 53px;
+        margin: 12px 0;
+      }
+    }
+  }
+
+  &__temp {
+    @include applyPreset(createPreset(96px, 500, 117px));
+
+    color: $primary;
+
+    &.popup {
+      @include applyPreset(createPreset(60px, 500, 73px));
+    }
+  }
+
+  &__day {
+    @include applyPreset(createPreset(40px, 500, 40px));
+
+    color: var(--text-color-default);
+
+    &.popup {
+      @include applyPreset(createPreset(25px, 500, 30px));
+    }
+  }
+
+  &__bottom *:not(:last-child) {
+    margin-bottom: 14px;
+  }
+
+  &__time, &__city {
+    @include applyPreset(createPreset(25px, 500, 30px));
+
+    color: $color-gray;
+
+    &.popup {
+      @include applyPreset(createPreset(15px, 500, 18px));
+
+      margin-bottom: 0;
+    }
+  }
+}

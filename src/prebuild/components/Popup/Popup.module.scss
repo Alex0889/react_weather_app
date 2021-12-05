@@ -1,0 +1,48 @@
+@import "src/prebuild/scss/variables";
+
+.root {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background: rgba($color-black, .2);
+  z-index: 1000;
+
+  &__wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 100%;
+    max-width: 750px;
+
+    border: none;
+    border-radius: $border-radius;
+
+    padding: 35px 40px;
+
+    background-color: var(--component-backgroud-default);
+
+    transform: translatex(-50%) translateY(-50%);
+  }
+
+  &__close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+
+    cursor: pointer;
+
+    svg {
+      transition: .2s;
+    }
+
+    &:hover {
+      svg {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
