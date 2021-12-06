@@ -17,7 +17,7 @@ const HomePage: FC = () => {
     dispatch(
       getWeather({
         queries: [
-          { name: 'q', value: 'nakhodka' },
+          { name: 'q', value: 'magadan' },
           { name: 'lang', value: 'ru' },
         ],
       }),

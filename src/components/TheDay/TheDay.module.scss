@@ -65,7 +65,7 @@
     &.popup {
       @include applyPreset(createPreset(15px, 500, 18px));
 
-      margin-bottom: 0;
+      margin-bottom: 7px;
     }
   }
 }

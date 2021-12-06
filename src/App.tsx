@@ -12,7 +12,7 @@ const App: FC = () => {
   dayjs.extend(calendar);
   dayjs.extend(updateLocale);
   dayjs.updateLocale('ru', {
-    weekdays: 'Воскресенье_Понедельник_Вторник_Среда_Четверг_Пятница_Суббота'.split('_'),
+    weekdays: 'Воскресенье_Понедельник_Вторник_Среда_Четверг_Пятница_Суббота'.split('_')
   });
 
   return (

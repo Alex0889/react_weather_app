@@ -1,19 +1,17 @@
 import React, { FC, useState } from 'react';
-import dayjs from 'dayjs';
+import { unix } from 'dayjs';
 
 import s from './DayCard.module.scss';
 
 import GlobalSvgSelector from 'prebuild/assets/icons/GlobalSvgSelector';
 import { iconPicker } from 'prebuild/helpers/iconPicker';
-import { calendarLocale } from 'prebuild/helpers/calendarLocale';
 import { ICurrent } from 'app/interfaces/ICurrent';
 import { IDaily } from 'app/interfaces/IDaily';
-import { isICurrent } from 'prebuild/guards/isICurrent';
-import { isIDaily } from 'prebuild/guards/isIDaily';
 import TheDay from 'components/TheDay';
 import Popup from 'prebuild/components/Popup';
 import DayInfo from 'components/DayInfo';
-
+import { isIDaily } from 'prebuild/guards/isIDaily';
+import('dayjs/locale/ru');
 
 type DayCardProps = {
   readonly day: ICurrent | IDaily;
@@ -35,11 +33,17 @@ const DayCard: FC<DayCardProps> = (
       </Popup>
       }
       <div className={s.root} onClick={() => setIsPopupOpen(true)}>
-        <span className={s.root__day}>{(dayjs(dayjs.unix(day.dt)).calendar(null, calendarLocale))}</span>
+        <span className={s.root__day}>{unix(day.dt).calendar(null, {
+          lastDay: 'Вчера',
+          sameDay: 'Сегодня',
+          nextDay: 'Завтра',
+          nextWeek: 'dddd',
+          sameElse: 'DD/MM/YYYY',
+        })}</span>
 
         <span
           className={s.root__date}>
-            {dayjs.unix(day.dt).format(isICurrent(day) ? 'HH:mm' : 'D MMM')}
+            {unix(day.dt).format(isIDaily(day) ? 'HH:mm' : 'D MMM')}
         </span>
 
 
@@ -47,20 +51,17 @@ const DayCard: FC<DayCardProps> = (
 
         <span
           className={s.root__temp_day}>
-          {Math.round(isICurrent(day) ? day.temp : day.temp.day)}&deg;
+          {Math.round(isIDaily(day) ? day.temp.day : day.temp)}&deg;
         </span>
 
-        {
-          Boolean(isICurrent(day)) &&
-          <span
-            className={s.root__temp_night}>
-            ощущается как {Math.round(isICurrent(day) ? day.feels_like : 0)}&deg;
+
+        <span
+          className={s.root__temp_night}>
+            {isIDaily(day) ?
+              (<>ночью {Math.round((day as unknown as IDaily).temp.night)}&deg;</>) :
+              (<>ощущается {Math.round((day as unknown as ICurrent).feels_like)}&deg;</>)
+            }
           </span>
-        }
-        {
-          Boolean(isIDaily(day)) &&
-          <span className={s.root__temp_night}>ночью {isIDaily(day) ? Math.round(day.temp.night) : 0}&deg;</span>
-        }
 
         <span className={s.root__info}>{day.weather[0].description}</span>
 

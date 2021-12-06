@@ -30,13 +30,10 @@ export class Api {
     if (response.ok) {
       try {
         const rawResponse = await response.json() as (IEntity | IForecast | RejectResponse);
-        console.log('1');
         if (Boolean(rawResponse['cod']) && rawResponse['cod'] !== 200) {
-          console.log('2');
           const rejRes = rawResponse as RejectResponse;
           throw createException(rejRes.message);
         }
-        console.log('3');
         return rawResponse as (IEntity | IForecast);
 
       } catch (e) {

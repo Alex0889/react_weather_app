@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import s from './TheDay.module.scss';
-import Card from 'prebuild/components/Card';
 import clsx from 'clsx';
-import GlobalSvgSelector from 'prebuild/assets/icons/GlobalSvgSelector';
-import { iconPicker } from '../../prebuild/helpers/iconPicker';
-import { ICurrent } from '../../app/interfaces/ICurrent';
 import dayjs from 'dayjs';
-import { calendarLocale } from '../../prebuild/helpers/calendarLocale';
-import { IDaily } from '../../app/interfaces/IDaily';
+
+import Card from 'prebuild/components/Card';
+import GlobalSvgSelector from 'prebuild/assets/icons/GlobalSvgSelector';
+import { iconPicker } from 'prebuild/helpers/iconPicker';
+import { ICurrent } from 'app/interfaces/ICurrent';
+import { IDaily } from 'app/interfaces/IDaily';
 
 type TheDayProps = {
   readonly className?: string;
@@ -37,16 +37,21 @@ const TheDay: FC<TheDayProps> = (
             className={
               clsx(s.root__day,
                 (isPopup && s.popup),
-              )}>{dayjs.unix(weather.dt).calendar(null, calendarLocale)}</div>
+              )}>{dayjs.unix(weather.dt).calendar(null, {lastDay: 'Вчера',
+                                                         sameDay: 'Сегодня',
+                                                         nextDay: 'Завтра',
+                                                         nextWeek: 'dddd',
+                                                         sameElse: 'DD/MM/YYYY'})}</div>
           {isPopup && <GlobalSvgSelector id={iconPicker(weather.weather[0].icon)} />}
         </div>
         {!isPopup && <GlobalSvgSelector id={iconPicker(weather.weather[0].icon)} />}
       </div>
+
       <div className={s.root__bottom}>
         <div className={
           clsx(s.root__time,
             (isPopup && s.popup),
-          )}>Время: <time>{dayjs().format('HH:mm')}</time>
+          )}>Время: <time>{dayjs.unix(weather.dt).format('HH:mm')}</time>
         </div>
         <div className={
           clsx(s.root__city,
