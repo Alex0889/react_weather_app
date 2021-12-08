@@ -1,41 +1,34 @@
 import { createException } from './createException';
 import { IQuery } from './interfaces/IQuery';
-import { IEntity } from './interfaces/IEntity';
-import { IForecast } from './interfaces/IForecast';
+import { queryStringBuilder } from './helpers';
+
+export type SuccessResponse = {
+  readonly cod: 200;
+}
 
 export type RejectResponse = {
   readonly cod: number;
   readonly message: string;
 }
 
-export class Api {
-  public constructor(private readonly baseUrl: string) {
-  }
+export default class Api {
+  public constructor(private readonly baseUrl: string) {}
 
-  public async GET(url: string, payload?: Record<string, any>): Promise<IEntity | IForecast> {
-
-    const getQueryString = (queries: IQuery[]): string => {
-      let res = `${this.baseUrl}/${url}?appid=${process.env.REACT_APP_API_KEY as string}&units=metric`;
-      queries.forEach(query => {
-        res += `&${query.name}=${query.value}`;
-      });
-      return res;
-    };
+  public async GET<T>(url: string, payload?: Record<string, any>): Promise<T> {
 
     const response = await fetch(
-      getQueryString(payload as IQuery[]), {
+      `${this.baseUrl}/${url}?${queryStringBuilder(payload as IQuery[])}`, {
         method: 'GET',
       });
 
     if (response.ok) {
       try {
-        const rawResponse = await response.json() as (IEntity | IForecast | RejectResponse);
-        if (Boolean(rawResponse['cod']) && rawResponse['cod'] !== 200) {
-          const rejRes = rawResponse as RejectResponse;
-          throw createException(rejRes.message);
+        const rawResponse = await response.json() as (SuccessResponse | RejectResponse);
+        if (Boolean(rawResponse['cod']) && rawResponse.cod !== 200) {
+          throw createException((rawResponse as RejectResponse).message);
+        } else {
+          return rawResponse as unknown as T;
         }
-        return rawResponse as (IEntity | IForecast);
-
       } catch (e) {
         throw createException('E_UNABLE_TO_PARSE_JSON', `${this.baseUrl}/${url}`);
       }

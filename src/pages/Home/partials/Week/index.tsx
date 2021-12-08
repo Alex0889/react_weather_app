@@ -19,10 +19,20 @@ const Week: FC = () => {
         {
           tabSelector === 'day' ?
             Boolean(weather) && weather!.hourly.slice(0, 24).map(day => (
-              <DayCard key={day.dt} day={day} city={current.weather!.name} />
+              <DayCard
+                key={day.dt}
+                day={day}
+                city={current.weather!.name}
+                timezone={weather!.timezone}
+              />
             )) :
             Boolean(weather) && weather!.daily.slice(0, 7).map(day => (
-              <DayCard key={day.dt} day={day} city={current.weather!.name} />
+              <DayCard
+                key={day.dt}
+                day={day}
+                city={current.weather!.name}
+                timezone={weather!.timezone}
+              />
             ))
         }
       </Card>

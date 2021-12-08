@@ -2,7 +2,6 @@ import { Theme } from 'app/enum/Theme';
 
 export function changeCssRootVariables(theme: Theme) {
   const root = document.querySelector(':root') as HTMLElement;
-  console.dir(root);
 
   const components = [
     'body-background',

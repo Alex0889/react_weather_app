@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import themeReducer from './slices/theme';
-import weatherReducer from './slices/weather';
-import tabsReducer from './slices/tabs';
+import theme from './slices/theme';
+import weather from './slices/weather';
+import tabs from './slices/tabs';
+import geolocation from './slices/geolocation';
 
 export const store = configureStore({
   reducer: {
-    theme: themeReducer,
-    weather: weatherReducer,
-    tabs: tabsReducer,
+    theme,
+    weather,
+    tabs,
+    geolocation,
   },
 });
 

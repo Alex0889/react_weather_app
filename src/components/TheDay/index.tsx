@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import s from './TheDay.module.scss';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 
 import Card from 'prebuild/components/Card';
 import GlobalSvgSelector from 'prebuild/assets/icons/GlobalSvgSelector';
@@ -9,11 +11,15 @@ import { iconPicker } from 'prebuild/helpers/iconPicker';
 import { ICurrent } from 'app/interfaces/ICurrent';
 import { IDaily } from 'app/interfaces/IDaily';
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 type TheDayProps = {
   readonly className?: string;
   readonly isPopup?: boolean;
   readonly weather: ICurrent | IDaily;
   readonly cityName: string;
+  readonly timezone: string;
 };
 
 const TheDay: FC<TheDayProps> = (
@@ -22,6 +28,7 @@ const TheDay: FC<TheDayProps> = (
     isPopup,
     weather,
     cityName,
+    timezone
   }) => {
   return (
     <Card className={clsx(s.root, (isPopup && s.popup), className)}>
@@ -51,7 +58,7 @@ const TheDay: FC<TheDayProps> = (
         <div className={
           clsx(s.root__time,
             (isPopup && s.popup),
-          )}>Время: <time>{dayjs.unix(weather.dt).format('HH:mm')}</time>
+          )}>Время: <time>{dayjs.unix(weather.dt).tz(timezone).format('HH:mm')}</time>
         </div>
         <div className={
           clsx(s.root__city,

@@ -206,14 +206,14 @@ const GlobalSvgSelector: FC<GlobalSvgSelectorProps> = (
     }
     case 'mist': {
       return (
-        <svg width="47" height="40" viewBox="0 0 47 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="17.5" y1="1.5" x2="38.5" y2="1.5" stroke="#939CB0" strokeWidth="3" strokeLinecap="round"/>
-          <line x1="6.5" y1="7.5" x2="30.5" y2="7.5" stroke="#939CB0" strokeWidth="3" strokeLinecap="round"/>
-          <line x1="12.5" y1="32.5" x2="36.5" y2="32.5" stroke="#939CB0" strokeWidth="3" strokeLinecap="round"/>
-          <line x1="16.5" y1="38.5" x2="30.5" y2="38.5" stroke="#939CB0" strokeWidth="3" strokeLinecap="round"/>
-          <line x1="1.5" y1="26.5" x2="33.5" y2="26.5" stroke="#939CB0" strokeWidth="3" strokeLinecap="round"/>
-          <line x1="1.5" y1="13.5" x2="38.5" y2="13.5" stroke="#939CB0" strokeWidth="3" strokeLinecap="round"/>
-          <line x1="16.5" y1="19.5" x2="45.5" y2="19.5" stroke="#939CB0" strokeWidth="3" strokeLinecap="round"/>
+        <svg width='47' height='40' viewBox='0 0 47 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
+          <line x1='17.5' y1='1.5' x2='38.5' y2='1.5' stroke='#939CB0' strokeWidth='3' strokeLinecap='round' />
+          <line x1='6.5' y1='7.5' x2='30.5' y2='7.5' stroke='#939CB0' strokeWidth='3' strokeLinecap='round' />
+          <line x1='12.5' y1='32.5' x2='36.5' y2='32.5' stroke='#939CB0' strokeWidth='3' strokeLinecap='round' />
+          <line x1='16.5' y1='38.5' x2='30.5' y2='38.5' stroke='#939CB0' strokeWidth='3' strokeLinecap='round' />
+          <line x1='1.5' y1='26.5' x2='33.5' y2='26.5' stroke='#939CB0' strokeWidth='3' strokeLinecap='round' />
+          <line x1='1.5' y1='13.5' x2='38.5' y2='13.5' stroke='#939CB0' strokeWidth='3' strokeLinecap='round' />
+          <line x1='16.5' y1='19.5' x2='45.5' y2='19.5' stroke='#939CB0' strokeWidth='3' strokeLinecap='round' />
         </svg>
       );
     }
@@ -313,6 +313,33 @@ const GlobalSvgSelector: FC<GlobalSvgSelectorProps> = (
           <path
             d='M10.0605 9L11.7803 7.28025C12.0731 6.98737 12.0731 6.51262 11.7803 6.21975C11.4874 5.92687 11.0126 5.92687 10.7198 6.21975L9.00003 7.9395L7.28028 6.21975C6.98778 5.92687 6.51228 5.92687 6.21978 6.21975C5.9269 6.51262 5.9269 6.98737 6.21978 7.28025L7.93953 9L6.21978 10.7198C5.9269 11.0126 5.9269 11.4874 6.21978 11.7803C6.36603 11.9269 6.55803 12 6.75003 12C6.94203 12 7.13403 11.9269 7.28028 11.7803L9.00003 10.0605L10.7198 11.7803C10.8664 11.9269 11.058 12 11.25 12C11.442 12 11.6336 11.9269 11.7803 11.7803C12.0731 11.4874 12.0731 11.0126 11.7803 10.7198L10.0605 9Z'
             fill='#4793FF' />
+        </svg>
+      );
+    case 'loader':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg'
+             version='1.0' width='40px' height='40px' viewBox='0 0 128 128'>
+          <rect x='0' y='0' width='100%' height='100%' />
+          <g>
+            <circle cx='16' cy='64' r='16' fill='#4793FF' />
+            <circle cx='16' cy='64' r='16' fill='#6bb9f7' transform='rotate(45,64,64)' />
+            <circle cx='16' cy='64' r='16' fill='#a2d3fa' transform='rotate(90,64,64)' />
+            <circle cx='16' cy='64' r='16' fill='#d3eafd' transform='rotate(135,64,64)' />
+            <circle cx='16' cy='64' r='16' fill='#E5E5E5' transform='rotate(180,64,64)' />
+            <circle cx='16' cy='64' r='16' fill='#E5E5E5' transform='rotate(225,64,64)' />
+            <circle cx='16' cy='64' r='16' fill='#E5E5E5' transform='rotate(270,64,64)' />
+            <circle cx='16' cy='64' r='16' fill='#E5E5E5' transform='rotate(315,64,64)' />
+            <animateTransform attributeName='transform' type='rotate'
+                              values='0 64 64;
+                              45 64 64;
+                              90 64 64;
+                              135 64 64;
+                              180 64 64;
+                              225 64 64;
+                              270 64 64;
+                              315 64 64;'
+                              calcMode='discrete' dur='720ms' repeatCount='indefinite' />
+          </g>
         </svg>
       );
     default:

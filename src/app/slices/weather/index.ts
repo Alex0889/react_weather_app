@@ -40,7 +40,7 @@ const weatherSlice = createSlice({
         current.isLoading = true;
       })
       .addCase(getWeather.fulfilled, ({ current }, { payload }) => {
-        current.weather = payload as IEntity;
+        current.weather = payload;
         current.isLoading = false;
       })
       .addCase(getWeather.rejected, ({ current }, { error }) => {
@@ -52,11 +52,10 @@ const weatherSlice = createSlice({
         forecast.isLoading = true;
       })
       .addCase(getForecastByCoords.fulfilled, ({ forecast }, { payload }) => {
-        forecast.weather = payload as IForecast;
+        forecast.weather = payload;
         forecast.isLoading = false;
       })
       .addCase(getForecastByCoords.rejected, ({ forecast }, { error }) => {
-        console.log(error);
         forecast.error = error.message;
         forecast.isLoading = false;
       });

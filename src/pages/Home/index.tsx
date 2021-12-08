@@ -8,25 +8,41 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { getWeather } from 'app/slices/weather/thunk/getWeather';
 import WithSkeleton from 'components/WithSkeleton';
 import { getForecastByCoords } from '../../app/slices/weather/thunk/getForecastByCoords';
+import { getGeolocation } from '../../app/slices/geolocation/thunk/getGeolocation';
+import Loader from '../../components/Loader';
 
 const HomePage: FC = () => {
   const dispatch = useAppDispatch();
-  const { weather: { current, forecast: { weather, isLoading, error } } } = useAppSelector();
+  const {
+    geolocation: {
+      geolocation,
+    },
+    weather: {
+      current,
+      forecast: { weather, isLoading, error },
+    },
+  } = useAppSelector();
 
   useEffect(() => {
+    dispatch(getGeolocation());
+  }, [dispatch]);
+
+  useEffect(() => {
+    Boolean(geolocation.geolocation) &&
     dispatch(
       getWeather({
         queries: [
-          { name: 'q', value: 'magadan' },
+          { name: 'q', value: geolocation.geolocation!.city },
           { name: 'lang', value: 'ru' },
         ],
       }),
     );
-  }, [dispatch]);
+  }, [dispatch, geolocation]);
 
 
   useEffect(() => {
-    Boolean(current.weather) && dispatch(getForecastByCoords({
+    Boolean(current.weather) &&
+    dispatch(getForecastByCoords({
       queries: [
         { name: 'lat', value: String(current.weather!.coord.lat) },
         { name: 'lon', value: String(current.weather!.coord.lon) },
@@ -41,8 +57,10 @@ const HomePage: FC = () => {
         isLoading={isLoading}
         isEmpty={Boolean(weather) && Object.keys(weather!).length === 0}
         error={error}
+        loadingSlot={<Loader className={s.root__loader}/>}
       >
-        {Boolean(weather) && <TheDay weather={weather!.current} cityName={current.weather!.name} />}
+        {Boolean(weather) &&
+        <TheDay weather={weather!.current} cityName={current.weather!.name} timezone={weather!.timezone} />}
         {Boolean(weather) && <DayInfo weather={weather!.current} />}
         {Boolean(weather) && <Week />}
       </WithSkeleton>

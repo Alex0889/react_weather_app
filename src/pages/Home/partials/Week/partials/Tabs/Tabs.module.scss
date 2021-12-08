@@ -13,14 +13,6 @@
     display: flex;
   }
 
-  &__tab {
-    transition: .2s;
-    &:hover, &.active {
-      background-color: $primary;
-      color: $color_white;
-    }
-  }
-
   &__tab:not(:last-child) {
     margin-right: 15px;
   }
@@ -38,5 +30,11 @@
     color: var(--text-color-default);
 
     cursor: pointer;
+
+    transition: .2s;
+    &:hover, &.active {
+      background-color: $primary;
+      color: $color_white;
+    }
   }
 }
