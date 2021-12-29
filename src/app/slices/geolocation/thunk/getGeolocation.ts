@@ -6,10 +6,7 @@ import { Exception } from '../../../createException';
 export const getGeolocation = createAsyncThunk(
   'getGeolocation',
   async () => {
-    return await GeolocationApi.GET<IGeo>('',
-      [
-        { name: 'fields', value: 'city,lat,lon,timezone' },
-      ]);
+    return await GeolocationApi.GET<IGeo>('');
   },
   {
     serializeError: x => {

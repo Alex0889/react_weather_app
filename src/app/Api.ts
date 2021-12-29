@@ -16,29 +16,31 @@ export default class Api {
   }
 
   public async GET<T>(url: string, payload?: Record<string, any>): Promise<T> {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/${url}?${queryStringBuilder(payload as IQuery[])}`, {
+          method: 'GET',
+        });
 
-    const response = await fetch(
-      `${this.baseUrl}/${url}?${queryStringBuilder(payload as IQuery[])}`, {
-        method: 'GET',
-      });
+      if (response.ok) {
+        try {
+          const rawResponse = await response.json() as (SuccessResponse | RejectResponse);
 
-
-    if (response.ok) {
-      try {
-        const rawResponse = await response.json() as (SuccessResponse | RejectResponse);
-
-        if (Boolean(rawResponse['cod']) && rawResponse.cod !== 200) {
-          throw createException('ERROR', (rawResponse as RejectResponse).message);
-        } else {
-          return rawResponse as unknown as T;
+          if (Boolean(rawResponse['cod']) && rawResponse.cod !== 200) {
+            throw createException('ERROR', (rawResponse as RejectResponse).message);
+          } else {
+            return rawResponse as unknown as T;
+          }
+        } catch (e) {
+          throw createException('E_UNABLE_TO_PARSE_JSON', `${this.baseUrl}/${url}`);
         }
-      } catch (e) {
-        throw createException('E_UNABLE_TO_PARSE_JSON', `${this.baseUrl}/${url}`);
-      }
-    } else {
+      } else {
         const rawResponse = await response.json() as RejectResponse;
         console.log(rawResponse);
         throw createException('ERROR', (rawResponse as RejectResponse).message);
+      }
+    } catch (e) {
+      throw createException('ERROR', (e as Error).message);
     }
   }
 }
