@@ -15,6 +15,8 @@ const GlobalSvgSelector: FC<GlobalSvgSelectorProps> = (
   const smallRainSunId = useUniqId();
   const smallRainSunId1 = useUniqId();
   const smallRainSunId2 = useUniqId();
+  const smallRainMoonId = useUniqId();
+  const smallRainMoonId1 = useUniqId();
   const smallRainId = useUniqId();
   const smallRainId2 = useUniqId();
   const mainlyCloudyId = useUniqId();
@@ -80,6 +82,12 @@ const GlobalSvgSelector: FC<GlobalSvgSelectorProps> = (
           />
         </svg>
       );
+    case 'moon':
+      return (
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="22" fill="#E9F8FF"/>
+        </svg>
+      )
     case 'sun':
       return (
         <svg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -217,6 +225,26 @@ const GlobalSvgSelector: FC<GlobalSvgSelectorProps> = (
         </svg>
       );
     }
+    case 'small_rain_moon':
+      return (
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 24C36.4183 24 40 20.4183 40 16C40 11.5817 36.4183 8 32 8C27.5817 8 24 11.5817 24 16C24 20.4183 27.5817 24 32 24Z" fill="#C5C5C5"/>
+          <path d="M14.218 38.926L12.118 43.924C11.798 44.688 12.156 45.568 12.92 45.888C13.684 46.208 14.564 45.85 14.884 45.086L16.984 40.088C17.304 39.324 16.946 38.444 16.182 38.124C15.418 37.804 14.538 38.162 14.218 38.926V38.926ZM24.218 36.926L22.118 41.924C21.798 42.688 22.156 43.568 22.92 43.888C23.684 44.208 24.564 43.85 24.884 43.086L26.984 38.088C27.304 37.324 26.946 36.444 26.182 36.124C25.418 35.804 24.538 36.162 24.218 36.926Z" fill="#66AFEB"/>
+          <path d="M12 34C7.582 34 4 30.418 4 26C4 21.582 7.582 18 12 18C12.834 18 13.636 18.128 14.392 18.364C15.518 14.68 18.946 12 23 12C27.97 12 32 16.03 32 21C32 21.47 31.964 21.93 31.894 22.38C32.55 22.134 33.258 22 34 22C37.314 22 40 24.686 40 28C40 31.314 37.314 34 34 34H12Z" fill={`url(#${smallRainMoonId})`}/>
+          <path d="M14 21C14 25.97 18.03 30 23 30C27.502 30 31.23 26.696 31.894 22.38C32.55 22.134 33.258 22 34 22C37.314 22 40 24.686 40 28C40 31.314 37.314 34 34 34H12C7.582 34 4 30.418 4 26C4 21.582 7.582 18 12 18C12.834 18 13.636 18.128 14.392 18.364C14.136 19.198 14 20.082 14 21Z" fill={`url(#${smallRainMoonId1})`}/>
+          <defs>
+            <linearGradient id={smallRainMoonId} x1="22" y1="12" x2="22" y2="34" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#9FC7FF"/>
+              <stop offset="1" stopColor="#9BC1F5"/>
+            </linearGradient>
+            <radialGradient id={smallRainMoonId1} cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(15.0679 -22.6966) rotate(-90) scale(20.9574 6.69705)">
+              <stop stopColor="#486DA8" stopOpacity="0.4"/>
+              <stop offset="1" stopColor="#486DA8" stopOpacity="0"/>
+            </radialGradient>
+          </defs>
+        </svg>
+
+      );
     case 'small_rain_sun':
       return (
         <svg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'>

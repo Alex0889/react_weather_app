@@ -25,6 +25,8 @@
   &__wrapper {
     display: flex;
     align-items: center;
+
+    cursor: pointer;
   }
 
   &__logo {
@@ -43,13 +45,12 @@
     color: $primary;
   }
 
-  &__theme {
-    margin-right: 20px;
+}
 
-    border: none;
+.actions {
+  display: none;
 
-    background-color: inherit;
-
-    cursor: pointer;
+  @include breakpoint(sm) {
+    display: flex;
   }
 }

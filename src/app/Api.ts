@@ -12,7 +12,8 @@ export type RejectResponse = {
 }
 
 export default class Api {
-  public constructor(private readonly baseUrl: string) {}
+  public constructor(private readonly baseUrl: string) {
+  }
 
   public async GET<T>(url: string, payload?: Record<string, any>): Promise<T> {
 
@@ -21,18 +22,23 @@ export default class Api {
         method: 'GET',
       });
 
+
     if (response.ok) {
       try {
         const rawResponse = await response.json() as (SuccessResponse | RejectResponse);
+
         if (Boolean(rawResponse['cod']) && rawResponse.cod !== 200) {
-          throw createException((rawResponse as RejectResponse).message);
+          throw createException('ERROR', (rawResponse as RejectResponse).message);
         } else {
           return rawResponse as unknown as T;
         }
       } catch (e) {
         throw createException('E_UNABLE_TO_PARSE_JSON', `${this.baseUrl}/${url}`);
       }
+    } else {
+        const rawResponse = await response.json() as RejectResponse;
+        console.log(rawResponse);
+        throw createException('ERROR', (rawResponse as RejectResponse).message);
     }
-    throw createException('E_UNABLE_TO_REACH_SERVER', `${this.baseUrl}/${url}`);
   }
 }

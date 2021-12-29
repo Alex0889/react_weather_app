@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import clsx from 'clsx';
 import s from './Page.module.scss';
 import Header from 'components/Header';

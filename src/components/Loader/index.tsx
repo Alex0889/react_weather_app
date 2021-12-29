@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import s from './Loader.module.scss';
 import clsx from 'clsx';
 import GlobalSvgSelector from 'prebuild/assets/icons/GlobalSvgSelector';

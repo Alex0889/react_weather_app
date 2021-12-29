@@ -11,14 +11,33 @@
     box-shadow: none;
   }
 
+  &__wrapper {
+    z-index: 1;
+  }
+
   &__top {
     display: grid;
     grid-template-columns: 1fr 119px;
     margin-bottom: 30px;
 
     svg {
-      width: 119px;
-      height: 119px;
+      position: absolute;
+      right: 0;
+
+      width: 50%;
+      height: 50%;
+
+      @include breakpoint(sm) {
+        width: 60%;
+        height: 60%;
+      }
+
+      @include breakpoint(md) {
+        right: 20px;
+
+        width: 119px;
+        height: 119px;
+      }
     }
 
     &.popup {
@@ -26,8 +45,11 @@
       margin-bottom: 0;
 
       svg {
+        position: relative;
+
         width: 53px;
         height: 53px;
+
         margin: 12px 0;
       }
     }
@@ -57,7 +79,7 @@
     margin-bottom: 14px;
   }
 
-  &__time, &__city {
+  &__time, &__city, &__date {
     @include applyPreset(createPreset(25px, 500, 30px));
 
     color: $color-gray;

@@ -1,7 +1,16 @@
 export const calendarLocale = {
-  lastDay: 'Вчера',
-  sameDay: 'Сегодня',
-  nextDay: 'Завтра',
-  nextWeek: 'dddd',
-  sameElse: 'DD/MM/YYYY',
+  en: {
+    lastDay: 'Yesterday',
+    sameDay: 'Today',
+    nextDay: 'Tomorrow',
+    nextWeek: 'dddd',
+    sameElse: 'dddd',
+  },
+  ru: {
+    lastDay: 'Вчера',
+    sameDay: 'Сегодня',
+    nextDay: 'Завтра',
+    nextWeek: 'dddd',
+    sameElse: 'dddd',
+  },
 };

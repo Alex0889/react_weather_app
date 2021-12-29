@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import s from './Popup.module.scss';
 import GlobalSvgSelector from '../../assets/icons/GlobalSvgSelector';
 import clsx from 'clsx';

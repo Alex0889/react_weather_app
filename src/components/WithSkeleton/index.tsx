@@ -1,13 +1,13 @@
-import React, { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 type WithSkeletonProps = {
   readonly isLoading: boolean;
   readonly isEmpty: boolean;
   readonly error: string | undefined;
 
-  readonly loadingSlot?: React.ReactNode;
-  readonly emptySpaceSlot?: React.ReactNode;
-  readonly errorSlot?: React.ReactNode;
+  readonly loadingSlot?: ReactNode;
+  readonly emptySpaceSlot?: ReactNode;
+  readonly errorSlot?: ReactNode;
 };
 
 const WithSkeleton: FC<WithSkeletonProps> = (

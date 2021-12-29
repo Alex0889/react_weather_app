@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { unix } from 'dayjs';
 
 import s from './DayCard.module.scss';
@@ -10,9 +10,8 @@ import Popup from 'prebuild/components/Popup';
 import DayInfo from 'components/DayInfo';
 import { isIDaily } from 'prebuild/guards/isIDaily';
 import DayCard from './DayCard';
-import { calendarLocale } from 'prebuild/helpers/calendarLocale';
-
-import('dayjs/locale/ru');
+import withTranslate from 'components/WithTranslate';
+import { IWithTranslate } from 'prebuild/interfaces/IWithTranslate';
 
 type DayCardContainerProps = {
   readonly day: ICurrent | IDaily;
@@ -20,11 +19,12 @@ type DayCardContainerProps = {
   readonly timezone: string;
 };
 
-const DayCardContainer: FC<DayCardContainerProps> = (
+const DayCardContainer: FC<DayCardContainerProps & IWithTranslate> = (
   {
     day,
     city,
     timezone,
+    t
   }) => {
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
 
@@ -33,10 +33,10 @@ const DayCardContainer: FC<DayCardContainerProps> = (
   };
 
   const tempFeelsLike = isIDaily(day) ?
-    (<>ночью {Math.round((day as IDaily).temp.night)}&deg;</>) :
-    (<>ощущается {Math.round((day as ICurrent).feels_like)}&deg;</>);
+    (<>{t['atNight']} {Math.round((day as IDaily).temp.night)}&deg;</>) :
+    (<>{t['feels']} {Math.round((day as ICurrent).feels_like)}&deg;</>);
 
-  const date = unix(day.dt).calendar(null, calendarLocale);
+  const date = unix(day.dt).format('dddd');
 
   return (
     <>
@@ -58,4 +58,4 @@ const DayCardContainer: FC<DayCardContainerProps> = (
   );
 };
 
-export default DayCardContainer;
+export default withTranslate(DayCardContainer);

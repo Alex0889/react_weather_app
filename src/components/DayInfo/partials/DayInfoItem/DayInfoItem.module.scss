@@ -3,11 +3,22 @@
 
 .root {
   display: grid;
-  grid-template-columns: 38px 20% auto;
+  grid-template-columns: 150px 1fr;
   gap: 20px;
   align-items: center;
 
   z-index: 1;
+
+  @include breakpoint(sm) {
+    grid-template-columns: 180px 1fr;
+  }
+
+  &__wrapper {
+    display: grid;
+    gap: 20px;
+    align-items: center;
+    grid-template-columns: 38px 1fr;
+  }
 
   &__icon {
     display: flex;

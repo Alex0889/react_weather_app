@@ -15,19 +15,19 @@ export function windSpeedPicker(wind: number): string {
     Infinity,
   ];
   const names = [
-    'штиль',
-    'тихий ветер',
-    'слабый ветер',
-    'тихий ветер',
-    'умеренный ветер',
-    'свежий ветер',
-    'сильный ветер',
-    'крепкий ветер',
-    'очень крепкий ветер',
-    'шторм',
-    'сильный шторм',
-    'жесткий шторм',
-    'ураган'
+    'calm',
+    'lAir',
+    'lBreeze',
+    'gBreeze',
+    'mBreeze',
+    'fBreeze',
+    'sBreeze',
+    'hWind',
+    'gale',
+    'sGale',
+    'storm',
+    'vStorm',
+    'hurricane',
   ];
   for (let i = 0; i < windSpeed.length; i++) {
     if (wind <= windSpeed[i]) return names[i];

@@ -1,26 +1,35 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import s from './Tabs.module.scss';
 import clsx from 'clsx';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { setTabSelector } from '../../../../../../app/slices/tabs';
+import { TabsState } from 'prebuild/interfaces/tabs';
+import withTranslate from 'components/WithTranslate';
+import { IWithTranslate } from 'prebuild/interfaces/IWithTranslate';
 
-const Tabs: FC = () => {
-  const dispatch = useAppDispatch();
-  const {
-    tabs: { tabSelector },
-  } = useAppSelector();
+interface TabProps {
+  readonly handleTabChange: (key: TabsState) => void;
+  readonly selectedTab: string;
+}
 
+const Tabs: FC<TabProps & IWithTranslate> = (
+  {
+    handleTabChange,
+    selectedTab,
+    t
+  },
+) => {
   const tabs = [
-    { key: 'day', value: 'На сутки' },
-    { key: 'week', value: 'На неделю' },
+    { key: 'day' },
+    { key: 'week' },
   ];
 
-  const handleTabSelect = (key: string) => {
-    if (key !== tabSelector) dispatch(setTabSelector(key));
+  const handleTabSelect = (key: TabsState) => {
+    if (key !== selectedTab) {
+      handleTabChange(key);
+    }
   };
 
   const handleCancelBtn = () => {
-    dispatch(setTabSelector(tabs[0].key));
+    handleTabChange(tabs[0].key as TabsState);
   };
 
   return (
@@ -31,22 +40,22 @@ const Tabs: FC = () => {
             className={clsx(
               s.root__tab,
               s.root__btn,
-              tab.key === tabSelector && s.active,
+              tab.key === selectedTab && s.active,
             )}
             key={tab.key}
-            onClick={() => handleTabSelect(tab.key)}
+            onClick={() => handleTabSelect(tab.key as TabsState)}
           >
-            {tab.value}
+            {t[tab.key]}
           </button>
         ))}
       </div>
       <button
         onClick={handleCancelBtn}
         className={clsx(s.cancel, s.root__btn)}>
-        Отменить
+        {t['cancel']}
       </button>
     </div>
   );
 };
 
-export default Tabs;
+export default withTranslate(Tabs);

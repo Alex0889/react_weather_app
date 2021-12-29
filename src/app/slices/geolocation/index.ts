@@ -1,6 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IGeo } from '../../interfaces/IGeo';
 import { getGeolocation } from './thunk/getGeolocation';
+import { storage } from 'prebuild/helpers/storage';
+import { toast } from 'react-toastify';
 
 interface GeolocationState {
   readonly geolocation: {
@@ -8,6 +10,7 @@ interface GeolocationState {
     readonly isLoading: boolean,
     readonly error: string | undefined,
   };
+  readonly city: string;
 }
 
 const initialState: GeolocationState = {
@@ -15,27 +18,37 @@ const initialState: GeolocationState = {
     geolocation: null,
     isLoading: false,
     error: undefined,
-  }
-}
+  },
+  city: storage.getItem('city') || '',
+};
 
 const geolocationSlice = createSlice({
   name: 'geolocation',
   initialState,
-  reducers: {},
+  reducers: {
+    changeCity: (state, { payload }: PayloadAction<string>) => {
+      state.city = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(getGeolocation.pending, ({geolocation}) => {
+      .addCase(getGeolocation.pending, ({ geolocation }) => {
         geolocation.isLoading = true;
       })
-      .addCase(getGeolocation.fulfilled, ({geolocation}, {payload}) => {
-        geolocation.geolocation = payload;
-        geolocation.isLoading = false;
+      .addCase(getGeolocation.fulfilled, (state, { payload }) => {
+        state.geolocation.geolocation = payload;
+        state.city = payload.city;
+        state.geolocation.isLoading = false;
+        storage.setItem('city', payload.city);
       })
-      .addCase(getGeolocation.rejected, ({geolocation}, {error}) => {
+      .addCase(getGeolocation.rejected, ({ geolocation }, { error }) => {
         geolocation.error = error.message;
+        toast.error(error.message);
         geolocation.isLoading = false;
-      })
-  }
+      });
+  },
 });
+
+export const { changeCity } = geolocationSlice.actions;
 
 export default geolocationSlice.reducer;

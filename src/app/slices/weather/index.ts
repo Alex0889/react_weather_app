@@ -3,6 +3,7 @@ import { getWeather } from './thunk/getWeather';
 import { getForecastByCoords } from './thunk/getForecastByCoords';
 import { IEntity } from '../../interfaces/IEntity';
 import { IForecast } from '../../interfaces/IForecast';
+import { toast } from 'react-toastify';
 
 interface WeatherState {
   readonly current: {
@@ -45,6 +46,7 @@ const weatherSlice = createSlice({
       })
       .addCase(getWeather.rejected, ({ current }, { error }) => {
         current.error = error.message;
+        toast.error(error.message);
         current.isLoading = false;
       });
     builder
@@ -57,6 +59,7 @@ const weatherSlice = createSlice({
       })
       .addCase(getForecastByCoords.rejected, ({ forecast }, { error }) => {
         forecast.error = error.message;
+        toast.error(error.message);
         forecast.isLoading = false;
       });
   },

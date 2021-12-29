@@ -1,7 +1,7 @@
 export function iconPicker(id: string): string {
   const icons: {[key: string]: string} = {
     '01d': 'sun',
-    '01n': 'sun',
+    '01n': 'moon',
     '02d': 'mainly_cloudy',
     '02n': 'mainly_cloudy',
     '03d': 'mainly_cloudy',
@@ -13,7 +13,7 @@ export function iconPicker(id: string): string {
     '13d': 'snow',
     '13n': 'snow',
     '10d': 'small_rain_sun',
-    '10n': 'small_rain_sun',
+    '10n': 'small_rain_moon',
     '09d': 'rain',
     '09n': 'rain',
     '11d': 'thunderstorm',
