@@ -2,6 +2,7 @@
 @import "src/prebuild/scss/mixins";
 
 .root {
+  $this: &;
   grid-area: ThisDayInfo;
 
   display: grid;
@@ -17,6 +18,12 @@
     padding: 0;
     border-radius: 0;
     box-shadow: none;
+    #{$this}__items > div {
+      grid-template-columns: unset;
+      gap: unset;
+    }
+    @include breakpoint(sm) {
+    }
   }
 
   &__items {

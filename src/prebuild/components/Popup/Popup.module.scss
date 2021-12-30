@@ -1,4 +1,5 @@
 @import "src/prebuild/scss/variables";
+@import "src/prebuild/scss/mixins";
 
 .root {
   position: fixed;
@@ -16,7 +17,6 @@
     left: 50%;
 
     display: grid;
-    grid-template-columns: 30% 1fr;
 
     width: 100%;
     max-width: 750px;
@@ -29,6 +29,10 @@
     background-color: var(--component-background-default);
 
     transform: translatex(-50%) translateY(-50%);
+
+    @include breakpoint(sm) {
+      grid-template-columns: 30% 1fr;
+    }
   }
 
   &__close {

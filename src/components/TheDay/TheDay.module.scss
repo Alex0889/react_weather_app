@@ -45,12 +45,21 @@
       margin-bottom: 0;
 
       svg {
-        position: relative;
+        position: absolute;
+        top: 0;
+        right: 0;
 
-        width: 53px;
-        height: 53px;
+        width: 119px;
+        height: 199px;
 
         margin: 12px 0;
+
+        @include breakpoint(sm) {
+          position: relative;
+
+          width: 53px;
+          height: 53px;
+        }
       }
     }
   }
