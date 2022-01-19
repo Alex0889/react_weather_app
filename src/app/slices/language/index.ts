@@ -7,7 +7,7 @@ interface languageState {
 }
 
 const initialState: languageState = {
-  lang: storage.getItem('lang') || Lang.RU,
+  lang: storage.getItem('lang') || Lang.EN,
 };
 
 const languageSlice = createSlice({
